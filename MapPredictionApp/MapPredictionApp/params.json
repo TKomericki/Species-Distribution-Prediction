@@ -1,0 +1,10 @@
+{
+  "main_directory": "D:\\DIPLOMSKI REPO\\maps\\",
+  "result_directory": "D:\\DIPLOMSKI REPO\\results\\",
+  "connection_string": "server=DESKTOP-FIOBNRP\\SQL2019;driver={SQL Server};database=TempNalazista;trusted_connection=Yes",
+  "command": "SELECT IdKlase, HTRS96_X, HTRS96_Y FROM dbo.NalazisteOp JOIN dbo.Koord ON NalazisteOp.OznKoord = Koord.OznKoord",
+  "rabbit_exchange": "map_exchange",
+  "rabbit_host": "192.168.56.1",
+  "get_species_keyword": "get_species",
+  "default_csv_name": "findings.csv"
+}

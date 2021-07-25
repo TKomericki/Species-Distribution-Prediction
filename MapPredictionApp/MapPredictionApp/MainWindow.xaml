@@ -1,0 +1,143 @@
+﻿<Window x:Class="MapPredictionApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MapPredictionApp"
+        mc:Ignorable="d"
+        Title="Map Prediction" Height="840" Width="900">
+    <Grid Background="LightGreen">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" FontWeight="Bold" FontSize="30" TextAlignment="Center" VerticalAlignment="Center">IMPORT DATA FOR PROCESSING</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold" VerticalAlignment="Center">Spatial data:</TextBlock>
+            <Button Grid.Row="1" Grid.Column="2" Click="BrowseZip" Width="75" Height="45">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16">Browse a zip file</TextBlock>
+            </Button>
+            <Label Grid.Row="1" Grid.Column="3" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">OR</Label>
+            <Border Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
+                <Label Drop="ZipDnD_Drop" DragOver="ZipDnD_DragOver" AllowDrop="true" 
+                       FontSize="16" FontStyle="Oblique" Foreground="Gray"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                       Drag and drop zip file containing shapefile here.
+                </Label>
+            </Border>
+            <Button Grid.Row="1" Grid.Column="9" Name="RemoveZipButton" Content="Remove" Margin="10" IsEnabled="False" Click="RemoveZip"></Button>
+
+            <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Name="ImportButton" Margin="5" IsEnabled="False" Click="ImportData">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20" FontWeight="Bold">Import</TextBlock>
+            </Button>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold" VerticalAlignment="Center">Findings data:</TextBlock>
+            <Button Grid.Row="2" Grid.Column="2" Name="BrowseCSVButton" Visibility="Hidden" Click="BrowseCsv" Width="75" Height="45">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16">Browse a csv file</TextBlock>
+            </Button>
+            <Label Grid.Row="2" Grid.Column="3" Name="OrLabel" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">OR</Label>
+            <Border Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="5" Name="CsvDnDArea" BorderBrush="Black" BorderThickness="1" Visibility="Hidden">
+                <Label Drop="CsvDnD_Drop" DragOver="CsvDnD_DragOver" AllowDrop="true"
+                       FontSize="16" FontStyle="Oblique" Foreground="Gray" 
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    Drag and drop csv file containing findings here.
+                </Label>
+            </Border>
+            <Button Grid.Row="2" Grid.Column="9" Name="RemoveCsvButton" Content="Remove" Margin="10" IsEnabled="False" Click="RemoveCsv" Visibility="Hidden"></Button>
+
+            <Label Grid.Column="0" Grid.Row="4" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center">Input files:</Label>
+            <Label Name="FilePath" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="8" FontSize="14" Margin="0 5 0 5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White"></Label>
+
+            <Label Grid.Column="0" Grid.Row="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center">RESULT:</Label>
+            <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="8" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" Background="White" Name="ImportResult" IsReadOnly="True"/>
+
+            <StackPanel Grid.Row="2" Grid.Column="1">
+                <TextBlock  TextWrapping="Wrap" TextAlignment="Center" FontSize="14"  VerticalAlignment="Center">Source:</TextBlock>
+                <RadioButton GroupName="SourceType" Content="Database" IsChecked="True" Checked="UseDatabase"></RadioButton>
+                <RadioButton GroupName="SourceType" Name="CsvRBtn" Content="CSV File" Checked="UseCsv"></RadioButton>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" FontWeight="Bold" FontSize="30" TextAlignment="Center" VerticalAlignment="Center">EXPORT SPATIAL DATA WITH PREDICTIONS</TextBlock>
+
+            <Label Grid.Row="1" Grid.Column="0"  FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch">Map code:</Label>
+            <TextBox Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="7" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="MapCode"></TextBox>
+            <Button Grid.Row="1" Grid.Column="8"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Click="GetClasses">Search</Button>
+
+            <Label Grid.Column="0" Grid.Row="2" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center">RESULT:</Label>
+            <TextBox Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="8" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" Background="White" Name="ExportResult" IsReadOnly="True"/>
+
+            <DockPanel Grid.Row="3" Grid.Column="4"  Grid.RowSpan="3" Grid.ColumnSpan="2" Background="#bec755">
+                <Button DockPanel.Dock="Top" Name="SelectButton" Click="SelectAll" IsEnabled="False">Select all</Button>
+                <Button DockPanel.Dock="Top" Name="DeselectButton" Click="DeselectAll" IsEnabled="False">Deselect all</Button>
+                <ScrollViewer>
+                    <StackPanel Name="classesPanel"/>
+                </ScrollViewer>
+            </DockPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="Green">
+                <TextBlock FontSize="14" FontWeight="Bold">Color scale:</TextBlock>
+                <StackPanel Name="ColorButtons">
+                    <RadioButton GroupName="MapColor" Content="Green" IsChecked="True" FontSize="14"></RadioButton>
+                    <RadioButton GroupName="MapColor" Content="Red" FontSize="14"></RadioButton>
+                    <RadioButton GroupName="MapColor" Content="Grey" FontSize="14"></RadioButton>
+                    <RadioButton GroupName="MapColor" Content="Red-yellow-green" FontSize="14"></RadioButton>
+                </StackPanel>
+            </StackPanel>
+
+            <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Name="GenerateButton" Margin="5" IsEnabled="False" Click="GeneratePredictions">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20" FontWeight="Bold">Generate</TextBlock>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
